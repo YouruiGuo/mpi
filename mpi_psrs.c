@@ -135,8 +135,8 @@ int main(int argc, char** argv) {
     for (int i = 0; i < dataSize; ++i){
       data[i] = random()%dataSize;
     }
-    int a = checktest(data, dataSize);
-    printf("%d\n", a);
+    //int a = checktest(data, dataSize);
+    //printf("%d\n", a);
     startTime = getCurTime();
   }
   for (int i = 0; i < size; ++i){

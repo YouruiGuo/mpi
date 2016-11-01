@@ -1,0 +1,43 @@
+Command Line Help
+
+//copy file to virtual machine
+scp -i ubuntu.key file.ext ubuntu@162.246.157.223
+
+//connect to internal instances
+ssh -i ubuntu.key ubuntu@mpi0(1,2,3)
+
+////// set up virtual machine
+
+sudo apt-get install gcc make
+
+wget http://www.mpich.org/static/downloads/3.2/mpich-3.2.tar.gz
+
+cd mpich-3.2
+
+./configure --prefix=/home/ubuntu/mpich-install --disable-fortran --disable-cxx
+
+make
+
+vi .profile
+	PATH=..../bin=$HOME/mpich-install/bin:$PATH
+
+make install
+
+sudo vi /etc/hosts
+	10.2.11.129 mpi0
+	10.2.12.129 mpi1
+	10.2.14.129 mpi2
+	10.2.15.129 mpi3
+
+//go back to ~
+vi hosts
+	10.2.11.129
+	10.2.12.129
+	10.2.14.129
+	10.2.15.129
+
+//copy exec to each virtual machine
+scp -i ubuntu.key mpi-psrs ubuntu@mpi0(1,2,3)
+
+//run the program
+mpirun -np 4 -f hosts /home/ubuntu/mpi-psrs
